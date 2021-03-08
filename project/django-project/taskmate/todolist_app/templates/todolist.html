@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title> Todo List Manager </title>
+{% endblock title %}
+{% block content %}
+<div class = "container">
+  <br>
+  {% if messages %}
+      {% for message in messages %}
+          <div class = "alert alert-warning alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      {% endfor %}
+  {% endif %}
+  <form method = "POST" class="row">
+      {% csrf_token %}
+      <label class = "col-lg-4">Your Tasks For Today?</label>
+      <input type="text" class="form-control col-lg-6" name = "task" placeholder="New Task?">
+      <button type="submit" class="btn btn-primary col-lg-2" > Add Task </button>
+  </form>
+  <br>
+  <table class= "table table-bordered  table-hover">
+    <br>
+      <thead class = "table-dark">
+        <tr>
+          <th scope="col">Task</th>
+          <th scope="col">done</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+  <tbody>
+  {% if all_tasks %}
+      {% for obj in all_tasks %}
+      {% if obj.done %}
+          <tr class="table-success">
+          <td>{{ obj.task }}</td>
+          <td>Completed</td>
+          <td>Edit</td>
+          <td>Delete</td>
+          </tr>
+          {% else %}
+      <tr>
+          <td>{{ obj.task }}</td>
+          <td>Not Completed</td>
+          <td>Edit</td>
+          <td>Delete</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+  {% endif %}
+    </tbody>
+    </table>
+
+    </div>
+{% endblock content %}
