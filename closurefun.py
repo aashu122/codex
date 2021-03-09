@@ -32,3 +32,19 @@ def print_out():
     return "gooD morning"
 print(print_out())            # calling and printing function using decorator
 """
+#example
+def upper_d(func):
+    def inner():
+         str1 = func()
+         return str1.upper()
+    return inner
+def split_d(func):
+    def wrapper():
+        str2 = func()
+        return str2.split()
+    return wrapper
+@split_d            #can not change the order of two decorators
+@upper_d            # upper_d decorator first apply then split_d decorator will operate
+def ordinary():
+    return "good morning"
+print(ordinary())
